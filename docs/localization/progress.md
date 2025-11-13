@@ -10,7 +10,7 @@
 | Documentación | Seguimiento de progreso | _Asignar_ | ✅ Completo | 2025-11-13 | Este archivo |
 | Autenticación | Sign In / Sign Up | _Asignar_ | ✅ Completo | 2025-11-13 | Formularios y toasts migrados a `useTranslation`, claves `auth.signIn.*` |
 | Autenticación | Reset Password | _Asignar_ | ✅ Completo | 2025-11-13 | UI y validaciones usando `auth.resetPassword.*` |
-| Layout & Navegación | Layout común, `AppNav`, comandos | _Asignar_ | ⏳ Pendiente | — | Coordinar con equipo de comandos |
+| Layout & Navegación | Layout común, `AppNav`, comandos | _Asignar_ | ✅ Completo | 2025-11-13 | Localización de navegación, paleta de comandos y toggles principales |
 | Calendario | Página principal, modales | _Asignar_ | ⏳ Pendiente | — | Revisar tooltips y toasts |
 | Tareas | Lista, modal, board | _Asignar_ | ⏳ Pendiente | — | Revisar estados/etiquetas |
 | Focus Mode | Flujo completo | _Asignar_ | ⏳ Pendiente | — | Mantener consistencia con tareas |

@@ -5,12 +5,16 @@ import { commandRegistry } from "@/lib/commands/registry";
 import { Command } from "@/lib/commands/types";
 import { formatShortcut } from "@/lib/utils";
 
+import { useTranslation } from "@/hooks/useTranslation";
+
 interface ShortcutsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export function ShortcutsModal({ isOpen, onClose }: ShortcutsModalProps) {
+  const { t } = useTranslation();
+
   // Group commands by section
   const commandsBySection = commandRegistry.getAll().reduce(
     (acc, command) => {
@@ -32,9 +36,12 @@ export function ShortcutsModal({ isOpen, onClose }: ShortcutsModalProps) {
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-background p-6 shadow-lg">
           <div className="mb-4 flex items-center justify-between">
             <Dialog.Title className="text-lg font-semibold text-foreground">
-              Keyboard Shortcuts
+              {t("navigation.actions.shortcuts")}
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1.5 hover:bg-muted">
+            <Dialog.Close
+              className="rounded-full p-1.5 hover:bg-muted"
+              aria-label={t("commandPalette.aria.close")}
+            >
               <IoClose className="h-5 w-5 text-foreground" />
             </Dialog.Close>
           </div>
@@ -43,7 +50,9 @@ export function ShortcutsModal({ isOpen, onClose }: ShortcutsModalProps) {
             {Object.entries(commandsBySection).map(([section, commands]) => (
               <div key={section}>
                 <h3 className="mb-2 text-sm font-medium uppercase text-muted-foreground">
-                  {section}
+                  {t(`commands.sections.${section}`, {
+                    fallback: section,
+                  })}
                 </h3>
                 <div className="space-y-2">
                   {commands.map((command) => (
@@ -51,7 +60,11 @@ export function ShortcutsModal({ isOpen, onClose }: ShortcutsModalProps) {
                       key={command.id}
                       className="flex items-center justify-between text-sm"
                     >
-                      <span className="text-foreground">{command.title}</span>
+                      <span className="text-foreground">
+                        {t(`commands.${command.id}`, {
+                          fallback: command.title,
+                        })}
+                      </span>
                       {formatShortcut(command.shortcut) && (
                         <div className="flex-shrink-0">
                           <kbd className="rounded bg-muted px-1.5 py-0.5 text-xs">

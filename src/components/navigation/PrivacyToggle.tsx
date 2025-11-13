@@ -8,12 +8,19 @@ import { usePrivacy } from "@/components/providers/PrivacyProvider";
 
 import { cn } from "@/lib/utils";
 
+import { useTranslation } from "@/hooks/useTranslation";
+
 interface PrivacyToggleProps {
   className?: string;
 }
 
 export function PrivacyToggle({ className }: PrivacyToggleProps) {
   const { isPrivacyModeActive, togglePrivacyMode } = usePrivacy();
+  const { t } = useTranslation();
+
+  const title = isPrivacyModeActive
+    ? t("navigation.privacy.disable")
+    : t("navigation.privacy.enable");
 
   return (
     <button
@@ -25,9 +32,7 @@ export function PrivacyToggle({ className }: PrivacyToggleProps) {
           : "text-muted-foreground hover:bg-muted hover:text-foreground",
         className
       )}
-      title={
-        isPrivacyModeActive ? "Disable Privacy Mode" : "Enable Privacy Mode"
-      }
+      title={title}
     >
       {isPrivacyModeActive ? (
         <RiEyeOffLine className="h-4 w-4" />
@@ -35,7 +40,9 @@ export function PrivacyToggle({ className }: PrivacyToggleProps) {
         <RiEyeLine className="h-4 w-4" />
       )}
       <span className="hidden sm:inline">
-        {isPrivacyModeActive ? "Privacy On" : "Privacy"}
+        {isPrivacyModeActive
+          ? t("navigation.privacy.labelOn")
+          : t("navigation.privacy.labelOff")}
       </span>
     </button>
   );

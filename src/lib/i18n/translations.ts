@@ -8,6 +8,28 @@ export const translations: TranslationDictionary = {
     "common.actions.backToSignIn": "Back to Sign In",
     "common.actions.close": "Close",
     "common.status.loading": "Loading...",
+    "navigation.logoAlt": "FluidCalendar logo",
+    "navigation.links.calendar": "Calendar",
+    "navigation.links.tasks": "Tasks",
+    "navigation.links.focus": "Focus",
+    "navigation.actions.search": "Search",
+    "navigation.actions.searchHint": "Search or run a command (⌘K)",
+    "navigation.actions.shortcuts": "Shortcuts",
+    "navigation.actions.shortcutsHint": "View keyboard shortcuts (Press ?)",
+    "navigation.actions.openCommandPalette": "Open command palette",
+    "navigation.theme.toggle": "Toggle theme",
+    "navigation.theme.light": "Light",
+    "navigation.theme.dark": "Dark",
+    "navigation.theme.system": "System",
+    "navigation.privacy.enable": "Enable Privacy Mode",
+    "navigation.privacy.disable": "Disable Privacy Mode",
+    "navigation.privacy.labelOn": "Privacy On",
+    "navigation.privacy.labelOff": "Privacy",
+    "navigation.user.signIn": "Sign In",
+    "navigation.user.settings": "Settings",
+    "navigation.user.loggingOut": "Logging out...",
+    "navigation.user.logout": "Log out",
+    "navigation.user.avatarAlt": "User",
     "errors.generic.title": "Something went wrong!",
     "errors.generic.description": "An unexpected error has occurred.",
     "errors.generic.metaDescription": "An error occurred",
@@ -80,6 +102,49 @@ export const translations: TranslationDictionary = {
       "Failed to reset password",
     "auth.resetPassword.toast.resetError.description":
       "Please try again later.",
+    "commandPalette.title": "Command Menu",
+    "commandPalette.description":
+      "Search commands and navigate the application",
+    "commandPalette.placeholder": "Type a command or search...",
+    "commandPalette.clearSearch": "Clear search",
+    "commandPalette.startTyping":
+      "Start typing to search commands or try these:",
+    "commandPalette.showAll": "Show all commands",
+    "commandPalette.empty": "No results found. Try a different search term.",
+    "commandPalette.hint.quickTip": "Quick Tip",
+    "commandPalette.hint.descriptionPrefix": "Press",
+    "commandPalette.hint.descriptionMiddle": "(or",
+    "commandPalette.hint.descriptionSuffix":
+      ") to open the command palette and quickly access features.",
+    "commandPalette.hint.dismiss": "Dismiss",
+    "commandPalette.hint.tryNow": "Try it now",
+    "commandPalette.aria.dismissHint": "Dismiss hint",
+    "commandPalette.aria.close": "Close command menu",
+    "commands.sections.navigation": "Navigation",
+    "commands.sections.calendar": "Calendar",
+    "commands.sections.tasks": "Tasks",
+    "commands.sections.system": "System",
+    "commands.sections.privacy": "Privacy",
+    "commands.navigation": {
+      "calendar": "Go to Calendar",
+      "tasks": "Go to Tasks",
+      "focus": "Go to Focus",
+      "settings": "Go to Settings"
+    },
+    "commands.calendar": {
+      "today": "Go to Today",
+      "prev-week": "Previous Week",
+      "next-week": "Next Week",
+      "toggle-sidebar": "Toggle Calendar Sidebar",
+      "new-event": "Create New Event"
+    },
+    "commands.tasks": {
+      "create": "Create Task"
+    },
+    "commands.toggle-privacy-mode": {
+      "enable": "Enable Privacy Mode",
+      "disable": "Disable Privacy Mode"
+    },
     "validation.email": "Please enter a valid email address",
     "validation.password.min":
       "Password must be at least 8 characters",
@@ -94,6 +159,29 @@ export const translations: TranslationDictionary = {
     "common.actions.backToSignIn": "Volver a iniciar sesión",
     "common.actions.close": "Cerrar",
     "common.status.loading": "Cargando...",
+    "navigation.logoAlt": "Logo de FluidCalendar",
+    "navigation.links.calendar": "Calendario",
+    "navigation.links.tasks": "Tareas",
+    "navigation.links.focus": "Modo enfoque",
+    "navigation.actions.search": "Buscar",
+    "navigation.actions.searchHint": "Busca o ejecuta un comando (⌘K)",
+    "navigation.actions.shortcuts": "Atajos",
+    "navigation.actions.shortcutsHint":
+      "Ver atajos de teclado (Presiona ?)",
+    "navigation.actions.openCommandPalette": "Abrir la paleta de comandos",
+    "navigation.theme.toggle": "Cambiar tema",
+    "navigation.theme.light": "Claro",
+    "navigation.theme.dark": "Oscuro",
+    "navigation.theme.system": "Sistema",
+    "navigation.privacy.enable": "Activar modo privacidad",
+    "navigation.privacy.disable": "Desactivar modo privacidad",
+    "navigation.privacy.labelOn": "Privacidad activa",
+    "navigation.privacy.labelOff": "Privacidad",
+    "navigation.user.signIn": "Iniciar sesión",
+    "navigation.user.settings": "Configuración",
+    "navigation.user.loggingOut": "Cerrando sesión...",
+    "navigation.user.logout": "Cerrar sesión",
+    "navigation.user.avatarAlt": "Usuario",
     "errors.generic.title": "¡Algo salió mal!",
     "errors.generic.description": "Se produjo un error inesperado.",
     "errors.generic.metaDescription": "Ocurrió un error",
@@ -171,6 +259,50 @@ export const translations: TranslationDictionary = {
       "No se pudo restablecer la contraseña",
     "auth.resetPassword.toast.resetError.description":
       "Inténtalo nuevamente más tarde.",
+    "commandPalette.title": "Menú de comandos",
+    "commandPalette.description":
+      "Busca comandos y navega por la aplicación",
+    "commandPalette.placeholder": "Escribe un comando o realiza una búsqueda...",
+    "commandPalette.clearSearch": "Borrar búsqueda",
+    "commandPalette.startTyping":
+      "Empieza a escribir para buscar comandos o prueba esto:",
+    "commandPalette.showAll": "Mostrar todos los comandos",
+    "commandPalette.empty":
+      "No se encontraron resultados. Intenta con otra búsqueda.",
+    "commandPalette.hint.quickTip": "Consejo rápido",
+    "commandPalette.hint.descriptionPrefix": "Presiona",
+    "commandPalette.hint.descriptionMiddle": "(o",
+    "commandPalette.hint.descriptionSuffix":
+      ") para abrir la paleta de comandos y acceder rápidamente a las funciones.",
+    "commandPalette.hint.dismiss": "Descartar",
+    "commandPalette.hint.tryNow": "Pruébalo ahora",
+    "commandPalette.aria.dismissHint": "Cerrar consejo",
+    "commandPalette.aria.close": "Cerrar menú de comandos",
+    "commands.sections.navigation": "Navegación",
+    "commands.sections.calendar": "Calendario",
+    "commands.sections.tasks": "Tareas",
+    "commands.sections.system": "Sistema",
+    "commands.sections.privacy": "Privacidad",
+    "commands.navigation": {
+      "calendar": "Ir al calendario",
+      "tasks": "Ir a tareas",
+      "focus": "Ir a modo enfoque",
+      "settings": "Ir a configuración"
+    },
+    "commands.calendar": {
+      "today": "Ir a hoy",
+      "prev-week": "Semana anterior",
+      "next-week": "Semana siguiente",
+      "toggle-sidebar": "Alternar barra lateral del calendario",
+      "new-event": "Crear nuevo evento"
+    },
+    "commands.tasks": {
+      "create": "Crear tarea"
+    },
+    "commands.toggle-privacy-mode": {
+      "enable": "Activar modo privacidad",
+      "disable": "Desactivar modo privacidad"
+    },
     "validation.email": "Ingresa una dirección de correo válida",
     "validation.password.min":
       "La contraseña debe tener al menos 8 caracteres",

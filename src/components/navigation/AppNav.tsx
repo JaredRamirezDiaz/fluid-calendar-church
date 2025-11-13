@@ -1,12 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { BsListTask, BsCalendar } from "react-icons/bs";
 import { HiOutlineLightBulb, HiOutlineSearch } from "react-icons/hi";
 import { RiKeyboardLine } from "react-icons/ri";
+
+import { useTranslation } from "@/hooks/useTranslation";
 
 import { cn } from "@/lib/utils";
 
@@ -22,6 +24,7 @@ interface AppNavProps {
 export function AppNav({ className }: AppNavProps) {
   const pathname = usePathname();
   const { setOpen: setShortcutsOpen } = useShortcutsStore();
+  const { t } = useTranslation();
 
   // Function to trigger command palette
   const openCommandPalette = () => {
@@ -35,9 +38,9 @@ export function AppNav({ className }: AppNavProps) {
   };
 
   const links = [
-    { href: "/calendar", label: "Calendar", icon: BsCalendar },
-    { href: "/tasks", label: "Tasks", icon: BsListTask },
-    { href: "/focus", label: "Focus", icon: HiOutlineLightBulb },
+    { href: "/calendar", labelKey: "navigation.links.calendar", icon: BsCalendar },
+    { href: "/tasks", labelKey: "navigation.links.tasks", icon: BsListTask },
+    { href: "/focus", labelKey: "navigation.links.focus", icon: HiOutlineLightBulb },
   ];
 
   return (
@@ -59,7 +62,7 @@ export function AppNav({ className }: AppNavProps) {
             >
               <Image
                 src="/logo.svg"
-                alt="Calendar Logo"
+                  alt={t("navigation.logoAlt")}
                 width={28}
                 height={28}
                 className="mr-2"
@@ -81,7 +84,7 @@ export function AppNav({ className }: AppNavProps) {
                   )}
                 >
                   <Icon className="h-4 w-4" />
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               );
             })}
@@ -90,10 +93,13 @@ export function AppNav({ className }: AppNavProps) {
             <button
               onClick={openCommandPalette}
               className="flex items-center gap-1 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
-              title="Search or run a command (⌘K)"
+              title={t("navigation.actions.searchHint")}
+              aria-label={t("navigation.actions.openCommandPalette")}
             >
               <HiOutlineSearch className="h-4 w-4" />
-              <span className="hidden sm:inline">Search</span>
+              <span className="hidden sm:inline">
+                {t("navigation.actions.search")}
+              </span>
               <kbd className="ml-1 hidden rounded bg-muted px-1 py-0.5 text-xs sm:inline">
                 ⌘K
               </kbd>
@@ -102,10 +108,13 @@ export function AppNav({ className }: AppNavProps) {
             <button
               onClick={() => setShortcutsOpen(true)}
               className="flex items-center gap-1 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
-              title="View Keyboard Shortcuts (Press ?)"
+              title={t("navigation.actions.shortcutsHint")}
+              aria-label={t("navigation.actions.shortcutsHint")}
             >
               <RiKeyboardLine className="h-4 w-4" />
-              <span className="hidden sm:inline">Shortcuts</span>
+              <span className="hidden sm:inline">
+                {t("navigation.actions.shortcuts")}
+              </span>
               <kbd className="ml-1 hidden rounded bg-muted px-1 py-0.5 text-xs sm:inline">
                 ?
               </kbd>

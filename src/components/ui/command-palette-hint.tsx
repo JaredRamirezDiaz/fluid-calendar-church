@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 
+import { useTranslation } from "@/hooks/useTranslation";
+
 export function CommandPaletteHint() {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Check if the user has seen the hint before
@@ -48,22 +51,23 @@ export function CommandPaletteHint() {
         <div className="mb-2 flex items-start justify-between">
           <div className="flex items-center gap-2 font-medium text-primary">
             <HiOutlineSearch className="h-5 w-5" />
-            <span>Quick Tip</span>
+            <span>{t("commandPalette.hint.quickTip")}</span>
           </div>
           <button
             onClick={dismissHint}
             className="text-muted-foreground hover:text-foreground"
-            aria-label="Dismiss hint"
+            aria-label={t("commandPalette.aria.dismissHint")}
           >
             <IoClose className="h-5 w-5" />
           </button>
         </div>
 
         <p className="mb-3 text-sm text-foreground">
-          Press <kbd className="rounded bg-muted px-1.5 py-0.5 text-xs">⌘K</kbd>{" "}
-          (or{" "}
-          <kbd className="rounded bg-muted px-1.5 py-0.5 text-xs">Ctrl+K</kbd>)
-          to open the command palette and quickly access features.
+          {t("commandPalette.hint.descriptionPrefix")}{" "}
+          <kbd className="rounded bg-muted px-1.5 py-0.5 text-xs">⌘K</kbd>{" "}
+          {t("commandPalette.hint.descriptionMiddle")}{" "}
+          <kbd className="rounded bg-muted px-1.5 py-0.5 text-xs">Ctrl+K</kbd>
+          {t("commandPalette.hint.descriptionSuffix")}
         </p>
 
         <div className="flex justify-end gap-2">
@@ -71,13 +75,13 @@ export function CommandPaletteHint() {
             onClick={dismissHint}
             className="px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
           >
-            Dismiss
+            {t("commandPalette.hint.dismiss")}
           </button>
           <button
             onClick={openCommandPalette}
             className="rounded-md bg-primary px-3 py-1 text-xs text-primary-foreground hover:bg-primary/90"
           >
-            Try it now
+            {t("commandPalette.hint.tryNow")}
           </button>
         </div>
       </div>
