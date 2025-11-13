@@ -18,10 +18,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useTranslation } from "@/hooks/useTranslation";
+
 export function UserMenu() {
   const { data: session, status } = useSession();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  console.log("status-------", status);
+  const { t } = useTranslation();
 
   // Show a loading state or nothing while session is loading
   if (status === "loading") {
@@ -33,7 +35,7 @@ export function UserMenu() {
     return (
       <Link href="/auth/signin">
         <Button variant="outline" size="sm">
-          Sign In
+          {t("navigation.user.signIn")}
         </Button>
       </Link>
     );
@@ -62,7 +64,7 @@ export function UserMenu() {
           <Avatar className="h-8 w-8">
             <AvatarImage
               src={session.user?.image || ""}
-              alt={session.user?.name || "User"}
+              alt={session.user?.name || t("navigation.user.avatarAlt")}
             />
             <AvatarFallback>{getInitials()}</AvatarFallback>
           </Avatar>
@@ -83,7 +85,7 @@ export function UserMenu() {
         <DropdownMenuItem asChild>
           <Link href="/settings" className="cursor-pointer">
             <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
+            <span>{t("navigation.user.settings")}</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -93,7 +95,11 @@ export function UserMenu() {
           disabled={isLoggingOut}
         >
           <LogOut className="mr-2 h-4 w-4" />
-          <span>{isLoggingOut ? "Logging out..." : "Log out"}</span>
+          <span>
+            {isLoggingOut
+              ? t("navigation.user.loggingOut")
+              : t("navigation.user.logout")}
+          </span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

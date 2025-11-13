@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
+
+import { useTranslation } from "@/hooks/useTranslation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +35,7 @@ export function SignInForm() {
   const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
   const [publicSignupEnabled, setPublicSignupEnabled] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const checkPublicSignup = async () => {
@@ -64,27 +66,28 @@ export function SignInForm() {
       });
 
       if (result?.error) {
-        toast.error("Authentication failed", {
-          description: "Please check your email and password and try again.",
+        toast.error(t("auth.signIn.toast.error.title"), {
+          description: t("auth.signIn.toast.error.description"),
         });
-      } else {
-        toast.success("Signed in successfully");
-
-        // The token is set in the background, so we'll redirect after a minimal delay
-        // to ensure the token is available for the next request
-        setTimeout(() => {
-          // Force a hard navigation to ensure the middleware re-evaluates with the new token
-          window.location.href = "/calendar";
-        }, 100);
+        return;
       }
+
+      toast.success(t("auth.signIn.toast.success"));
+
+      // The token is set in the background, so we'll redirect after a minimal delay
+      // to ensure the token is available for the next request
+      setTimeout(() => {
+        // Force a hard navigation to ensure the middleware re-evaluates with the new token
+        window.location.href = "/calendar";
+      }, 100);
     } catch (error) {
       logger.error(
         "Error signing in",
         { error: error instanceof Error ? error.message : "Unknown error" },
         LOG_SOURCE
       );
-      toast.error("An error occurred", {
-        description: "Please try again later.",
+      toast.error(t("auth.signIn.toast.genericError.title"), {
+        description: t("auth.signIn.toast.genericError.description"),
       });
     } finally {
       setIsLoading(false);
@@ -111,12 +114,13 @@ export function SignInForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        toast.error("Registration failed", {
-          description: data.error || "Please try again later.",
+        toast.error(t("auth.signIn.toast.signupError.title"), {
+          description:
+            data.error || t("auth.signIn.toast.signupError.description"),
         });
       } else {
-        toast.success("Account created successfully", {
-          description: "You can now sign in with your credentials.",
+        toast.success(t("auth.signIn.toast.signupSuccess.title"), {
+          description: t("auth.signIn.toast.signupSuccess.description"),
         });
         setActiveTab("signin");
       }
@@ -126,8 +130,8 @@ export function SignInForm() {
         { error: error instanceof Error ? error.message : "Unknown error" },
         LOG_SOURCE
       );
-      toast.error("An error occurred", {
-        description: "Please try again later.",
+      toast.error(t("auth.signIn.toast.genericError.title"), {
+        description: t("auth.signIn.toast.genericError.description"),
       });
     } finally {
       setIsLoading(false);
@@ -138,9 +142,9 @@ export function SignInForm() {
     <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">
-          Welcome to FluidCalendar
+          {t("auth.signIn.cardTitle")}
         </CardTitle>
-        <CardDescription>Sign in to your account to continue</CardDescription>
+        <CardDescription>{t("auth.signIn.cardDescription")}</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs
@@ -148,27 +152,33 @@ export function SignInForm() {
           onValueChange={(value) => setActiveTab(value as "signin" | "signup")}
         >
           <TabsList className="mb-6 grid w-full grid-cols-2">
-            <TabsTrigger value="signin">Sign In</TabsTrigger>
+            <TabsTrigger value="signin">
+              {t("auth.signIn.tabs.signIn")}
+            </TabsTrigger>
             {publicSignupEnabled && (
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="signup">
+                {t("auth.signIn.tabs.signUp")}
+              </TabsTrigger>
             )}
           </TabsList>
 
           <TabsContent value="signin">
             <form onSubmit={handleEmailSignIn} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("auth.signIn.fields.email")}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="name@example.com"
+                  placeholder={t("auth.signIn.placeholders.email")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">
+                  {t("auth.signIn.fields.password")}
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -184,12 +194,14 @@ export function SignInForm() {
                     onClick={() => router.push("/auth/reset-password")}
                     type="button"
                   >
-                    Forgot password?
+                    {t("auth.signIn.links.forgotPassword")}
                   </Button>
                 </div>
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Signing in..." : "Sign In"}
+                {isLoading
+                  ? t("auth.signIn.actions.signingIn")
+                  : t("auth.signIn.actions.signIn")}
               </Button>
             </form>
           </TabsContent>
@@ -198,28 +210,34 @@ export function SignInForm() {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">Name (Optional)</Label>
+                  <Label htmlFor="signup-name">
+                    {t("auth.signIn.fields.nameOptional")}
+                  </Label>
                   <Input
                     id="signup-name"
                     type="text"
-                    placeholder="Your Name"
+                    placeholder={t("auth.signIn.placeholders.name")}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email">
+                    {t("auth.signIn.fields.email")}
+                  </Label>
                   <Input
                     id="signup-email"
                     type="email"
-                    placeholder="name@example.com"
+                    placeholder={t("auth.signIn.placeholders.email")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">
+                    {t("auth.signIn.fields.password")}
+                  </Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -230,7 +248,9 @@ export function SignInForm() {
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Creating account..." : "Create Account"}
+                  {isLoading
+                    ? t("auth.signIn.actions.signingUp")
+                    : t("auth.signIn.actions.signUp")}
                 </Button>
               </form>
             </TabsContent>
@@ -238,7 +258,7 @@ export function SignInForm() {
         </Tabs>
       </CardContent>
       <CardFooter className="flex justify-center text-sm text-muted-foreground">
-        By signing in, you agree to our Terms of Service and Privacy Policy.
+        {t("auth.signIn.legalNotice")}
       </CardFooter>
     </Card>
   );

@@ -16,6 +16,7 @@ import {
 import { cn, formatShortcut } from "@/lib/utils";
 
 import { useCommands } from "@/hooks/useCommands";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -26,6 +27,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const [search, setSearch] = useState("");
   const [showAllCommands, setShowAllCommands] = useState(false);
   const { searchCommands, executeCommand, getAllCommands } = useCommands();
+  const { t } = useTranslation();
 
   // Get filtered commands based on search or show all commands
   const commands = useMemo(() => {
@@ -62,9 +64,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
         <Dialog.Content className="fixed left-1/2 top-[20%] z-50 w-full max-w-[640px] -translate-x-1/2">
-          <Dialog.Title className="sr-only">Command Menu</Dialog.Title>
+          <Dialog.Title className="sr-only">
+            {t("commandPalette.title")}
+          </Dialog.Title>
           <Dialog.Description className="sr-only">
-            Search commands and navigate the application
+            {t("commandPalette.description")}
           </Dialog.Description>
 
           <Command
@@ -79,7 +83,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             <div className="flex items-center border-b px-3">
               <HiOutlineSearch className="h-5 w-5 text-gray-400" />
               <Command.Input
-                placeholder="Type a command or search..."
+                placeholder={t("commandPalette.placeholder")}
                 className="h-12 flex-1 px-3 text-base outline-none placeholder:text-gray-400"
                 value={search}
                 onValueChange={setSearch}
@@ -88,7 +92,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                 <button
                   className="text-gray-400 hover:text-gray-600"
                   onClick={() => setSearch("")}
-                  aria-label="Clear search"
+                  aria-label={t("commandPalette.clearSearch")}
                 >
                   <HiX className="h-5 w-5" />
                 </button>
@@ -101,7 +105,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               )}
               <Dialog.Close
                 className="ml-2 p-2 text-gray-400 hover:text-gray-600"
-                aria-label="Close command menu"
+                aria-label={t("commandPalette.aria.close")}
               >
                 <HiX className="h-5 w-5" />
               </Dialog.Close>
@@ -110,9 +114,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             <Command.List className="max-h-[300px] overflow-y-auto p-2">
               {!search && !showAllCommands && (
                 <div className="px-2 py-3 text-sm text-gray-500">
-                  <p className="mb-2">
-                    Start typing to search commands or try these:
-                  </p>
+                  <p className="mb-2">{t("commandPalette.startTyping")}</p>
                   <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                     <div
                       className="flex cursor-pointer items-center gap-2 rounded-md p-2 hover:bg-gray-100"
@@ -122,7 +124,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       }}
                     >
                       <HiOutlineCalendar className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">Go to Calendar</span>
+                      <span className="text-sm">
+                        {t("commands.navigation.calendar")}
+                      </span>
                       <kbd className="ml-auto rounded bg-gray-100 px-1.5 py-0.5 text-xs">
                         gc
                       </kbd>
@@ -135,7 +139,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       }}
                     >
                       <HiOutlineClipboardList className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">Go to Tasks</span>
+                      <span className="text-sm">
+                        {t("commands.navigation.tasks")}
+                      </span>
                       <kbd className="ml-auto rounded bg-gray-100 px-1.5 py-0.5 text-xs">
                         gt
                       </kbd>
@@ -148,7 +154,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       }}
                     >
                       <HiOutlineLightningBolt className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">Go to Focus</span>
+                      <span className="text-sm">
+                        {t("commands.navigation.focus")}
+                      </span>
                       <kbd className="ml-auto rounded bg-gray-100 px-1.5 py-0.5 text-xs">
                         gf
                       </kbd>
@@ -161,7 +169,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       }}
                     >
                       <HiOutlineCog className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">Go to Settings</span>
+                      <span className="text-sm">
+                        {t("commands.navigation.settings")}
+                      </span>
                       <kbd className="ml-auto rounded bg-gray-100 px-1.5 py-0.5 text-xs">
                         gs
                       </kbd>
@@ -174,49 +184,50 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       className="flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/10"
                     >
                       <HiOutlineCollection className="h-4 w-4" />
-                      Show all commands
+                      {t("commandPalette.showAll")}
                     </button>
                   </div>
                 </div>
               )}
 
               <Command.Empty className="py-6 text-center text-sm text-gray-500">
-                No results found. Try a different search term.
+                {t("commandPalette.empty")}
               </Command.Empty>
 
               {(commands.length > 0 || showAllCommands) &&
-                Object.entries(groupedCommands).map(
-                  ([section, sectionCommands]) => (
-                    <Command.Group
-                      key={section}
-                      heading={
-                        section.charAt(0).toUpperCase() + section.slice(1)
-                      }
-                    >
-                      {sectionCommands.map((command) => {
-                        const Icon = command.icon;
-                        return (
-                          <Command.Item
-                            key={command.id}
-                            className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm aria-selected:bg-blue-50 aria-selected:text-blue-700"
-                            onSelect={() => {
-                              executeCommand(command.id);
-                              onOpenChange(false);
-                            }}
-                          >
-                            {Icon && <Icon className="h-4 w-4" />}
-                            <span>{command.title}</span>
-                            {command.shortcut && (
-                              <kbd className="ml-auto text-xs text-gray-400">
-                                {formatShortcut(command.shortcut)}
-                              </kbd>
-                            )}
-                          </Command.Item>
-                        );
-                      })}
-                    </Command.Group>
-                  )
-                )}
+                Object.entries(groupedCommands).map(([section, sectionCommands]) => (
+                  <Command.Group
+                    key={section}
+                    heading={t(`commands.sections.${section}`, {
+                      fallback: section.charAt(0).toUpperCase() + section.slice(1),
+                    })}
+                  >
+                    {sectionCommands.map((command) => {
+                      const Icon = command.icon;
+                      const commandTitle = t(`commands.${command.id}`, {
+                        fallback: command.title,
+                      });
+                      return (
+                        <Command.Item
+                          key={command.id}
+                          className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm aria-selected:bg-blue-50 aria-selected:text-blue-700"
+                          onSelect={() => {
+                            executeCommand(command.id);
+                            onOpenChange(false);
+                          }}
+                        >
+                          {Icon && <Icon className="h-4 w-4" />}
+                          <span>{commandTitle}</span>
+                          {command.shortcut && (
+                            <kbd className="ml-auto text-xs text-gray-400">
+                              {formatShortcut(command.shortcut)}
+                            </kbd>
+                          )}
+                        </Command.Item>
+                      );
+                    })}
+                  </Command.Group>
+                ))}
             </Command.List>
           </Command>
         </Dialog.Content>

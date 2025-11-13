@@ -1,3 +1,11 @@
+# Localization Initiative
+
+- [ ] Establish localization architecture (i18n helpers, configuration, documentation)
+- [ ] Publish team execution plan and progress tracking for translation rollout
+- [ ] Pilot translation workflow on authentication flows (sign in, reset password) as reference implementation
+- [ ] Roll out translation coverage area by area following plan checkpoints
+- [ ] Verify QA checklist (lint, tests, manual review) after each area is completed
+
 # IMPORTANT
 
 - pending waitlist - need a way to resend emails with new tokens or for users that signup again to get a new email

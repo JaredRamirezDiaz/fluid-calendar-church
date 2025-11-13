@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added localization infrastructure for Spanish rollout, including centralized translations (`src/lib/i18n`), React hook support, and coordination docs under `docs/localization/`
+- Localized authentication flows (sign in, sign up, reset password) using the new translation system
+- Localized navigation bar, command palette UI, and related toggles with translation keys
 - Added a button to mark tasks as completed directly from the task quick view popup
 - Added visual indicator for externally synced tasks in task list view
 - Added Stripe configuration file (`src/lib/stripe.saas.ts`) for SAAS payment processing
