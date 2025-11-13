@@ -1,8 +1,10 @@
+import { t } from "@/lib/i18n";
+
 import { PasswordResetForm } from "@/components/auth/PasswordResetForm";
 
 export const metadata = {
-  title: "Reset Password - FluidCalendar",
-  description: "Reset your FluidCalendar account password",
+  title: t("auth.resetPassword.metaTitle"),
+  description: t("auth.resetPassword.metaDescription"),
 };
 
 export default function ResetPasswordPage() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -8,6 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+
+import { useTranslation } from "@/hooks/useTranslation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,35 +27,43 @@ import { logger } from "@/lib/logger";
 
 const LOG_SOURCE = "PasswordResetForm";
 
-// Form validation schema
-const requestSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-});
-
-const resetSchema = z
-  .object({
-    password: z
-      .string()
-      .min(8, "Password must be at least 8 characters")
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-      ),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+const createRequestSchema = (translate: (key: string) => string) =>
+  z.object({
+    email: z.string().email(translate("validation.email")),
   });
 
-type RequestFormValues = z.infer<typeof requestSchema>;
-type ResetFormValues = z.infer<typeof resetSchema>;
+const createResetSchema = (translate: (key: string) => string) =>
+  z
+    .object({
+      password: z
+        .string()
+        .min(8, translate("validation.password.min"))
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
+          translate("validation.password.complexity")
+        ),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: translate("validation.password.match"),
+      path: ["confirmPassword"],
+    });
+
+type RequestSchema = ReturnType<typeof createRequestSchema>;
+type ResetSchema = ReturnType<typeof createResetSchema>;
+
+type RequestFormValues = z.infer<RequestSchema>;
+type ResetFormValues = z.infer<ResetSchema>;
 
 export function PasswordResetForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
+
+  const requestSchema = useMemo(() => createRequestSchema(t), [t]);
+  const resetSchema = useMemo(() => createResetSchema(t), [t]);
 
   const {
     register: registerRequest,
@@ -86,25 +96,25 @@ export function PasswordResetForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to request password reset");
+        throw new Error(
+          result.error || t("auth.resetPassword.toast.requestError.description")
+        );
       }
 
-      toast.success("Password reset email sent", {
-        description: "Please check your email for further instructions.",
+      toast.success(t("auth.resetPassword.toast.requestSuccess.title"), {
+        description: t("auth.resetPassword.toast.requestSuccess.description"),
       });
-
-      // In development, show the reset link
-      if (process.env.NODE_ENV === "development" && result.debug) {
-        console.log("Debug - Reset URL:", result.debug.resetUrl);
-      }
     } catch (error) {
       logger.error(
         "Error requesting password reset",
         { error: error instanceof Error ? error.message : "Unknown error" },
         LOG_SOURCE
       );
-      toast.error("Failed to request password reset", {
-        description: "Please try again later.",
+      toast.error(t("auth.resetPassword.toast.requestError.title"), {
+        description:
+          error instanceof Error
+            ? error.message
+            : t("auth.resetPassword.toast.requestError.description"),
       });
     } finally {
       setIsLoading(false);
@@ -112,7 +122,10 @@ export function PasswordResetForm() {
   };
 
   const onResetSubmit = async (data: ResetFormValues) => {
-    if (!token) return;
+    if (!token) {
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -130,14 +143,15 @@ export function PasswordResetForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to reset password");
+        throw new Error(
+          result.error || t("auth.resetPassword.toast.resetError.description")
+        );
       }
 
-      toast.success("Password reset successful", {
-        description: "You can now sign in with your new password.",
+      toast.success(t("auth.resetPassword.toast.resetSuccess.title"), {
+        description: t("auth.resetPassword.toast.resetSuccess.description"),
       });
 
-      // Redirect to sign in page
       router.push("/auth/signin");
     } catch (error) {
       logger.error(
@@ -145,9 +159,11 @@ export function PasswordResetForm() {
         { error: error instanceof Error ? error.message : "Unknown error" },
         LOG_SOURCE
       );
-      toast.error("Failed to reset password", {
+      toast.error(t("auth.resetPassword.toast.resetError.title"), {
         description:
-          error instanceof Error ? error.message : "Please try again later.",
+          error instanceof Error
+            ? error.message
+            : t("auth.resetPassword.toast.resetError.description"),
       });
     } finally {
       setIsLoading(false);
@@ -157,11 +173,13 @@ export function PasswordResetForm() {
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
+        <CardTitle className="text-2xl font-bold">
+          {t("auth.resetPassword.title")}
+        </CardTitle>
         <CardDescription>
           {token
-            ? "Enter your new password below"
-            : "Enter your email to reset your password"}
+            ? t("auth.resetPassword.subtitle.reset")
+            : t("auth.resetPassword.subtitle.request")}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -171,7 +189,9 @@ export function PasswordResetForm() {
             className="space-y-4"
           >
             <div className="space-y-2">
-              <Label htmlFor="password">New Password</Label>
+              <Label htmlFor="password">
+                {t("auth.resetPassword.fields.password")}
+              </Label>
               <Input
                 id="password"
                 type="password"
@@ -187,7 +207,9 @@ export function PasswordResetForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">
+                {t("auth.resetPassword.fields.confirmPassword")}
+              </Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -203,7 +225,9 @@ export function PasswordResetForm() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Resetting Password..." : "Reset Password"}
+              {isLoading
+                ? t("auth.resetPassword.actions.resetting")
+                : t("auth.resetPassword.actions.reset")}
             </Button>
           </form>
         ) : (
@@ -212,11 +236,13 @@ export function PasswordResetForm() {
             className="space-y-4"
           >
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
+              <Label htmlFor="email">
+                {t("auth.resetPassword.fields.email")}
+              </Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder={t("auth.resetPassword.placeholders.email")}
                 {...registerRequest("email")}
                 className={requestErrors.email ? "border-red-500" : ""}
                 disabled={isLoading}
@@ -229,7 +255,9 @@ export function PasswordResetForm() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Sending Reset Link..." : "Send Reset Link"}
+              {isLoading
+                ? t("auth.resetPassword.actions.sendingLink")
+                : t("auth.resetPassword.actions.sendLink")}
             </Button>
           </form>
         )}
@@ -240,7 +268,7 @@ export function PasswordResetForm() {
           className="text-sm text-muted-foreground"
           onClick={() => router.push("/auth/signin")}
         >
-          Back to Sign In
+          {t("common.actions.backToSignIn")}
         </Button>
       </CardFooter>
     </Card>

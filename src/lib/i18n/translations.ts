@@ -18,7 +18,10 @@ export const translations: TranslationDictionary = {
       "The page you're looking for doesn't exist or has been moved.",
     "loading.title": "Loading {{title}}",
     "auth.signIn.metaTitle": "Sign In | FluidCalendar",
+    "auth.signIn.metaDescription": "Sign in to your FluidCalendar account",
     "auth.signIn.title": "Sign in to FluidCalendar",
+    "auth.signIn.cardTitle": "Welcome to FluidCalendar",
+    "auth.signIn.cardDescription": "Sign in to your account to continue",
     "auth.signIn.subtitle": "Manage your calendar and tasks efficiently",
     "auth.signIn.tabs.signIn": "Sign In",
     "auth.signIn.tabs.signUp": "Create Account",
@@ -44,7 +47,11 @@ export const translations: TranslationDictionary = {
     "auth.signIn.toast.signupSuccess.title": "Account created successfully",
     "auth.signIn.toast.signupSuccess.description":
       "You can now sign in with your credentials.",
+    "auth.signIn.legalNotice":
+      "By signing in, you agree to our Terms of Service and Privacy Policy.",
     "auth.resetPassword.metaTitle": "Reset Password - FluidCalendar",
+    "auth.resetPassword.metaDescription":
+      "Reset your FluidCalendar account password",
     "auth.resetPassword.title": "Reset Password",
     "auth.resetPassword.subtitle.request":
       "Enter your email to reset your password",
@@ -97,7 +104,12 @@ export const translations: TranslationDictionary = {
       "La página que buscas no existe o se ha movido.",
     "loading.title": "Cargando {{title}}",
     "auth.signIn.metaTitle": "Iniciar sesión | FluidCalendar",
+    "auth.signIn.metaDescription":
+      "Inicia sesión en tu cuenta de FluidCalendar",
     "auth.signIn.title": "Inicia sesión en FluidCalendar",
+    "auth.signIn.cardTitle": "Bienvenido a FluidCalendar",
+    "auth.signIn.cardDescription":
+      "Inicia sesión en tu cuenta para continuar",
     "auth.signIn.subtitle":
       "Administra tu calendario y tus tareas de forma eficiente",
     "auth.signIn.tabs.signIn": "Iniciar sesión",
@@ -125,7 +137,11 @@ export const translations: TranslationDictionary = {
     "auth.signIn.toast.signupSuccess.title": "Cuenta creada con éxito",
     "auth.signIn.toast.signupSuccess.description":
       "Ya puedes iniciar sesión con tus credenciales.",
+    "auth.signIn.legalNotice":
+      "Al iniciar sesión aceptas nuestros Términos del servicio y la Política de privacidad.",
     "auth.resetPassword.metaTitle": "Restablecer contraseña - FluidCalendar",
+    "auth.resetPassword.metaDescription":
+      "Restablece la contraseña de tu cuenta de FluidCalendar",
     "auth.resetPassword.title": "Restablecer contraseña",
     "auth.resetPassword.subtitle.request":
       "Ingresa tu correo electrónico para restablecer la contraseña",
