@@ -1,0 +1,167 @@
+import { TranslationDictionary } from "./types";
+
+export const translations: TranslationDictionary = {
+  en: {
+    "app.name": "FluidCalendar",
+    "common.actions.tryAgain": "Try again",
+    "common.actions.returnHome": "Return Home",
+    "common.actions.backToSignIn": "Back to Sign In",
+    "common.actions.close": "Close",
+    "common.status.loading": "Loading...",
+    "errors.generic.title": "Something went wrong!",
+    "errors.generic.description": "An unexpected error has occurred.",
+    "errors.generic.metaDescription": "An error occurred",
+    "errors.404.title": "404 - Page Not Found",
+    "errors.404.description":
+      "The page you're looking for doesn't exist or has been moved.",
+    "errors.404.metaDescription":
+      "The page you're looking for doesn't exist or has been moved.",
+    "loading.title": "Loading {{title}}",
+    "auth.signIn.metaTitle": "Sign In | FluidCalendar",
+    "auth.signIn.title": "Sign in to FluidCalendar",
+    "auth.signIn.subtitle": "Manage your calendar and tasks efficiently",
+    "auth.signIn.tabs.signIn": "Sign In",
+    "auth.signIn.tabs.signUp": "Create Account",
+    "auth.signIn.fields.email": "Email",
+    "auth.signIn.fields.password": "Password",
+    "auth.signIn.fields.nameOptional": "Name (Optional)",
+    "auth.signIn.placeholders.email": "name@example.com",
+    "auth.signIn.placeholders.name": "Your Name",
+    "auth.signIn.actions.signIn": "Sign In",
+    "auth.signIn.actions.signingIn": "Signing in...",
+    "auth.signIn.actions.signUp": "Create Account",
+    "auth.signIn.actions.signingUp": "Creating account...",
+    "auth.signIn.links.forgotPassword": "Forgot password?",
+    "auth.signIn.toast.success": "Signed in successfully",
+    "auth.signIn.toast.error.title": "Authentication failed",
+    "auth.signIn.toast.error.description":
+      "Please check your email and password and try again.",
+    "auth.signIn.toast.genericError.title": "An error occurred",
+    "auth.signIn.toast.genericError.description": "Please try again later.",
+    "auth.signIn.toast.signupError.title": "Registration failed",
+    "auth.signIn.toast.signupError.description":
+      "Please try again later or contact support.",
+    "auth.signIn.toast.signupSuccess.title": "Account created successfully",
+    "auth.signIn.toast.signupSuccess.description":
+      "You can now sign in with your credentials.",
+    "auth.resetPassword.metaTitle": "Reset Password - FluidCalendar",
+    "auth.resetPassword.title": "Reset Password",
+    "auth.resetPassword.subtitle.request":
+      "Enter your email to reset your password",
+    "auth.resetPassword.subtitle.reset": "Enter your new password below",
+    "auth.resetPassword.fields.email": "Email Address",
+    "auth.resetPassword.fields.password": "New Password",
+    "auth.resetPassword.fields.confirmPassword": "Confirm Password",
+    "auth.resetPassword.placeholders.email": "name@example.com",
+    "auth.resetPassword.actions.sendLink": "Send Reset Link",
+    "auth.resetPassword.actions.sendingLink": "Sending Reset Link...",
+    "auth.resetPassword.actions.reset": "Reset Password",
+    "auth.resetPassword.actions.resetting": "Resetting Password...",
+    "auth.resetPassword.toast.requestSuccess.title":
+      "Password reset email sent",
+    "auth.resetPassword.toast.requestSuccess.description":
+      "Please check your email for further instructions.",
+    "auth.resetPassword.toast.requestError.title":
+      "Failed to request password reset",
+    "auth.resetPassword.toast.requestError.description":
+      "Please try again later.",
+    "auth.resetPassword.toast.resetSuccess.title":
+      "Password reset successful",
+    "auth.resetPassword.toast.resetSuccess.description":
+      "You can now sign in with your new password.",
+    "auth.resetPassword.toast.resetError.title":
+      "Failed to reset password",
+    "auth.resetPassword.toast.resetError.description":
+      "Please try again later.",
+    "validation.email": "Please enter a valid email address",
+    "validation.password.min":
+      "Password must be at least 8 characters",
+    "validation.password.complexity":
+      "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+    "validation.password.match": "Passwords do not match",
+  },
+  es: {
+    "app.name": "FluidCalendar",
+    "common.actions.tryAgain": "Intentar de nuevo",
+    "common.actions.returnHome": "Volver al inicio",
+    "common.actions.backToSignIn": "Volver a iniciar sesión",
+    "common.actions.close": "Cerrar",
+    "common.status.loading": "Cargando...",
+    "errors.generic.title": "¡Algo salió mal!",
+    "errors.generic.description": "Se produjo un error inesperado.",
+    "errors.generic.metaDescription": "Ocurrió un error",
+    "errors.404.title": "404 - Página no encontrada",
+    "errors.404.description":
+      "La página que buscas no existe o se ha movido.",
+    "errors.404.metaDescription":
+      "La página que buscas no existe o se ha movido.",
+    "loading.title": "Cargando {{title}}",
+    "auth.signIn.metaTitle": "Iniciar sesión | FluidCalendar",
+    "auth.signIn.title": "Inicia sesión en FluidCalendar",
+    "auth.signIn.subtitle":
+      "Administra tu calendario y tus tareas de forma eficiente",
+    "auth.signIn.tabs.signIn": "Iniciar sesión",
+    "auth.signIn.tabs.signUp": "Crear cuenta",
+    "auth.signIn.fields.email": "Correo electrónico",
+    "auth.signIn.fields.password": "Contraseña",
+    "auth.signIn.fields.nameOptional": "Nombre (opcional)",
+    "auth.signIn.placeholders.email": "nombre@ejemplo.com",
+    "auth.signIn.placeholders.name": "Tu nombre",
+    "auth.signIn.actions.signIn": "Iniciar sesión",
+    "auth.signIn.actions.signingIn": "Iniciando sesión...",
+    "auth.signIn.actions.signUp": "Crear cuenta",
+    "auth.signIn.actions.signingUp": "Creando cuenta...",
+    "auth.signIn.links.forgotPassword": "¿Olvidaste tu contraseña?",
+    "auth.signIn.toast.success": "Sesión iniciada correctamente",
+    "auth.signIn.toast.error.title": "La autenticación falló",
+    "auth.signIn.toast.error.description":
+      "Verifica tu correo y contraseña e inténtalo de nuevo.",
+    "auth.signIn.toast.genericError.title": "Ocurrió un error",
+    "auth.signIn.toast.genericError.description":
+      "Inténtalo nuevamente más tarde.",
+    "auth.signIn.toast.signupError.title": "El registro falló",
+    "auth.signIn.toast.signupError.description":
+      "Inténtalo nuevamente más tarde o contacta al soporte.",
+    "auth.signIn.toast.signupSuccess.title": "Cuenta creada con éxito",
+    "auth.signIn.toast.signupSuccess.description":
+      "Ya puedes iniciar sesión con tus credenciales.",
+    "auth.resetPassword.metaTitle": "Restablecer contraseña - FluidCalendar",
+    "auth.resetPassword.title": "Restablecer contraseña",
+    "auth.resetPassword.subtitle.request":
+      "Ingresa tu correo electrónico para restablecer la contraseña",
+    "auth.resetPassword.subtitle.reset":
+      "Ingresa tu nueva contraseña a continuación",
+    "auth.resetPassword.fields.email": "Correo electrónico",
+    "auth.resetPassword.fields.password": "Nueva contraseña",
+    "auth.resetPassword.fields.confirmPassword": "Confirmar contraseña",
+    "auth.resetPassword.placeholders.email": "nombre@ejemplo.com",
+    "auth.resetPassword.actions.sendLink": "Enviar enlace de restablecimiento",
+    "auth.resetPassword.actions.sendingLink": "Enviando enlace...",
+    "auth.resetPassword.actions.reset": "Restablecer contraseña",
+    "auth.resetPassword.actions.resetting": "Restableciendo contraseña...",
+    "auth.resetPassword.toast.requestSuccess.title":
+      "Correo de restablecimiento enviado",
+    "auth.resetPassword.toast.requestSuccess.description":
+      "Revisa tu correo para continuar con el proceso.",
+    "auth.resetPassword.toast.requestError.title":
+      "No se pudo solicitar el restablecimiento",
+    "auth.resetPassword.toast.requestError.description":
+      "Inténtalo nuevamente más tarde.",
+    "auth.resetPassword.toast.resetSuccess.title":
+      "Contraseña restablecida con éxito",
+    "auth.resetPassword.toast.resetSuccess.description":
+      "Ahora puedes iniciar sesión con tu nueva contraseña.",
+    "auth.resetPassword.toast.resetError.title":
+      "No se pudo restablecer la contraseña",
+    "auth.resetPassword.toast.resetError.description":
+      "Inténtalo nuevamente más tarde.",
+    "validation.email": "Ingresa una dirección de correo válida",
+    "validation.password.min":
+      "La contraseña debe tener al menos 8 caracteres",
+    "validation.password.complexity":
+      "La contraseña debe incluir al menos una letra mayúscula, una letra minúscula y un número",
+    "validation.password.match": "Las contraseñas no coinciden",
+  },
+};
+
+export type TranslationKey = keyof (typeof translations)["en"];
